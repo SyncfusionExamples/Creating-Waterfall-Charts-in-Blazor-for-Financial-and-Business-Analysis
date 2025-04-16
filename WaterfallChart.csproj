@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Syncfusion.Blazor.Charts" Version="29.1.35" />
+    <PackageReference Include="Syncfusion.Blazor.Charts" Version="29.1.38" />
   </ItemGroup>
 
 </Project>
