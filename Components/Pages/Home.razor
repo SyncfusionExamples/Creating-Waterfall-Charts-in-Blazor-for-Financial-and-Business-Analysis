@@ -3,30 +3,48 @@
 @using Syncfusion.Blazor
 @using Syncfusion.Blazor.Charts
 
+
 <div class="control-section" align='center'>
-    <SfChart ID="waterfall" Title="Company Revenue and Profit" Width="@Width" Theme="Theme.Bootstrap4">
+
+    <SfChart ID="waterfall" Title="DLF Ltd. Financial Overview (FY 2024)" Width="@Width" Theme="Theme.Bootstrap4">
         <ChartTitleStyle TextOverflow="TextOverflow.Wrap"></ChartTitleStyle>
-        <ChartArea><ChartAreaBorder Width="0"></ChartAreaBorder></ChartArea>
-        <ChartPrimaryXAxis ValueType="Syncfusion.Blazor.Charts.ValueType.Category" LabelIntersectAction="@AxisLabelRotation" LabelRotation="@Rotation">
+
+        <ChartArea>
+            <ChartAreaBorder Width="0"></ChartAreaBorder>
+        </ChartArea>
+
+        <ChartPrimaryXAxis ValueType="Syncfusion.Blazor.Charts.ValueType.Category"
+                           LabelIntersectAction="@AxisLabelRotation" LabelRotation="@Rotation">
             <ChartAxisMajorGridLines Width="0"></ChartAxisMajorGridLines>
             <ChartAxisMajorTickLines Width="0"></ChartAxisMajorTickLines>
             <ChartAxisMinorTickLines Width="0"></ChartAxisMinorTickLines>
         </ChartPrimaryXAxis>
-        <ChartPrimaryYAxis Minimum="0" Maximum="1250" Interval="250" Title="USD" LabelFormat="{value}K">
+
+        <ChartPrimaryYAxis Minimum="0" Maximum="7000" Interval="1000" Title="₹ Crore" LabelFormat="{value}">
             <ChartAxisLineStyle Width="0"></ChartAxisLineStyle>
             <ChartAxisMajorTickLines Width="0"></ChartAxisMajorTickLines>
             <ChartAxisMinorTickLines Width="0"></ChartAxisMinorTickLines>
         </ChartPrimaryYAxis>
-        <ChartTooltipSettings Enable="true" Header="" Format="<b>${point.x}</b> <br> Product Revenue : <b>${point.y}</b>"></ChartTooltipSettings>
+
+        <ChartTooltipSettings Enable="true" Header=""
+                              Format="<b>${point.x}</b><br>Value: <b>${point.y} Cr</b>"></ChartTooltipSettings>
+
         <ChartLegendSettings Visible="false"></ChartLegendSettings>
+
         <ChartSeriesCollection>
-            <ChartSeries ColumnWidth="0.5" NegativeFillColor="#e56590" DataSource="@ChartPoints" Name="USA" XName="X"
-                         Width="2" IntermediateSumIndexes="@IntermediateSumIndexes" SumIndexes="@SumIndexes" YName="Y"
-                         Type="ChartSeriesType.Waterfall"
-                         CornerRadius="@(new ChartCornerRadius { TopLeft= 3, BottomLeft= 3, BottomRight= 3, TopRight= 3})">
+            <ChartSeries ColumnWidth="0.5"
+                         NegativeFillColor="#e56590"
+                         DataSource="@ChartPoints"
+                         Name="DLF FY2024"
+                         XName="X"
+                         YName="Y"
+                         Width="2"
+                         IntermediateSumIndexes="@IntermediateSumIndexes"
+                         SumIndexes="@SumIndexes"
+                         Type="ChartSeriesType.Waterfall">
                 <ChartSeriesAnimation Enable="true"></ChartSeriesAnimation>
                 <ChartMarker>
-                    <ChartDataLabel Visible="true" EnableRotation="@Rotate" Angle="@AngleRotate">
+                    <ChartDataLabel Visible="true" Position="LabelPosition.Outer">
                         <ChartDataLabelFont Size="@Size"></ChartDataLabelFont>
                     </ChartDataLabel>
                 </ChartMarker>
@@ -37,35 +55,28 @@
     </SfChart>
 </div>
 
-<style>
-    #waterfall_Series_0_Connector_ {
-        stroke-linejoin: round;
-        stroke-linecap: round;
-        -webkit-animation: dash 1s linear infinite;
-        animation: dash 1s linear infinite;
-    }
-</style>
-
 @code {
     public string Width { get; set; } = "90%";
     public string Size { get; set; } = "12px";
-    private Double[] IntermediateSumIndexes { get; set; } = new Double[] { 4 };
-    private Double[] SumIndexes { get; set; } = new Double[] { 7 };
     public LabelIntersectAction AxisLabelRotation { get; set; } = LabelIntersectAction.Rotate45;
     public double Rotation { get; set; } = 0;
-    public bool Rotate { get; set; } = false;
-    public double AngleRotate { get; set; } = 0;
+
+    // Intermediate Sum: Gross Profit, Final Sum: Net Profit
+    private Double[] IntermediateSumIndexes { get; set; } = new Double[] { 2 };
+    private Double[] SumIndexes { get; set; } = new Double[] { 6 };
+
+    // DLF Ltd. FY2024 Financial Highlights (₹ in Crore)
     public List<WaterfallChartData> ChartPoints { get; set; } = new List<WaterfallChartData>
     {
-        new WaterfallChartData { X = "Income", Y = 971 },
-        new WaterfallChartData { X = "Sales", Y = -101 },
-        new WaterfallChartData { X = "Development", Y = -268 },
-        new WaterfallChartData { X = "Revenue", Y = 403 },
-        new WaterfallChartData { X = "Balance" },
-        new WaterfallChartData { X = "Expense", Y = -136 },
-        new WaterfallChartData { X = "Tax", Y = -365 },
-        new WaterfallChartData { X = "Net Profit" },
+        new WaterfallChartData { X = "Revenue", Y = 6254.58 },
+        new WaterfallChartData { X = "Cost of Revenue", Y = -2536.31 },
+        new WaterfallChartData { X = "Gross Profit" }, // Intermediate Sum
+        new WaterfallChartData { X = "SG&A Expenses", Y = -1722.80 },
+        new WaterfallChartData { X = "Depreciation", Y = -105.75 },
+        new WaterfallChartData { X = "Interest Income", Y = 130.22 },
+        new WaterfallChartData { X = "Net Profit" } // Final Sum
     };
+
     public class WaterfallChartData
     {
         public string X { get; set; }
