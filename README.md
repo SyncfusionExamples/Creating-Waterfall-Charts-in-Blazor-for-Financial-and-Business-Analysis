@@ -13,7 +13,7 @@ Create a Waterfall Chart using Syncfusion Blazor Charts to effectively represent
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/Creating-Waterfall-Charts-in-Blazor-for-Financial-and-Business-Analysis.git
+git clone https://github.com/SyncfusionExamples/Creating-Waterfall-Charts-in-Blazor-for-Financial-and-Business-Analysis.git
 cd Creating-Waterfall-Charts-in-Blazor-for-Financial-and-Business-Analysis
 ```
 
